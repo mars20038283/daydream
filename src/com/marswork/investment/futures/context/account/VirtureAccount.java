@@ -13,7 +13,7 @@ import com.marswork.investment.futures.utils.DateUtils;
 
 public class VirtureAccount {
 
-	private final double originSum = 20000;
+	private final double originSum = 2000;
 
 	private double currSum;
 
