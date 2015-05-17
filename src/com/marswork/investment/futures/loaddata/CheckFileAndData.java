@@ -32,7 +32,7 @@ public class CheckFileAndData {
 				check(subFile);
 			}
 		} else {
-			if ((dataFile.getName().toUpperCase().startsWith("ZZTA02")
+			if ((dataFile.getName().toUpperCase().startsWith("ZZTA")
 			// || dataFile.getName().toUpperCase().startsWith("ZZMA")
 			// || dataFile.getName().toUpperCase().startsWith("SQRU")
 			// || dataFile.getName().toUpperCase().startsWith("SQRB")

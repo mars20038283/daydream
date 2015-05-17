@@ -1,14 +1,9 @@
 package com.marswork.investment.futures.loaddata;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.List;
 
-import com.csvreader.CsvReader;
-import com.marswork.core.minitools.file.FileOperater;
 import com.marswork.core.minitools.object.BasicUtils;
-import com.marswork.dataaccess.basic.CommonDAO;
-import com.marswork.dataaccess.basic.CommonVO;
 
 public class DataLoadRunner {
 
@@ -16,22 +11,16 @@ public class DataLoadRunner {
 
 	private static final DataLoader loader = new DataLoader();
 
-	private static int index = 0;
-
 	public static void main(String[] args) {
 		File targetFile = new File(dataFile);
 		doLoadDataFromCsv(targetFile);
 	}
 
 	public static void doLoadDataFromCsv(File dataFile) {
-		if (dataFile.isDirectory()) {
-			for (File subFile : dataFile.listFiles()) {
-				doLoadDataFromCsv(subFile);
-			}
-		} else {
-			for (String filePath : CheckFileAndData.check(dataFile)) {
-				loader.loadData(filePath);
-			}
+		List<String> files = CheckFileAndData.check(dataFile);
+		BasicUtils.outList(files);
+		for (String filePath : files) {
+			loader.loadData(filePath);
 		}
 	}
 }
