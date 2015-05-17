@@ -29,27 +29,8 @@ public class DataLoadRunner {
 				doLoadDataFromCsv(subFile);
 			}
 		} else {
-			if (!(dataFile.getName().toUpperCase().startsWith("ZZTA01")
-					|| dataFile.getName().toUpperCase().startsWith("ZZTA05")
-					|| dataFile.getName().toUpperCase().startsWith("ZZTA09")
-					|| dataFile.getName().toUpperCase().startsWith("ZZMA06")
-					|| dataFile.getName().toUpperCase().startsWith("ZZMA09")
-					|| dataFile.getName().toUpperCase().startsWith("DLL01")
-					|| dataFile.getName().toUpperCase().startsWith("DLL05")
-					|| dataFile.getName().toUpperCase().startsWith("DLL09")
-					|| dataFile.getName().toUpperCase().startsWith("SQRU01")
-					|| dataFile.getName().toUpperCase().startsWith("SQRU05")
-					|| dataFile.getName().toUpperCase().startsWith("SQRU09")
-					|| dataFile.getName().toUpperCase().startsWith("SQRB01")
-					|| dataFile.getName().toUpperCase().startsWith("SQRB05") || dataFile
-					.getName().toUpperCase().startsWith("SQRB09"))
-					&& !dataFile.getName().toUpperCase().endsWith("MI.CSV")
-					&& !dataFile.getName().toUpperCase().endsWith("-.CSV")) {
-				index++;
-				BasicUtils.out(index + "_" + dataFile.getAbsolutePath());
-				if (index > 1257) {
-					loader.loadData(dataFile.getAbsolutePath());
-				}
+			for (String filePath : CheckFileAndData.check(dataFile)) {
+				loader.loadData(filePath);
 			}
 		}
 	}
