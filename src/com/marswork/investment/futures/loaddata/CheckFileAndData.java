@@ -32,7 +32,7 @@ public class CheckFileAndData {
 				check(subFile);
 			}
 		} else {
-			if ((dataFile.getName().toUpperCase().startsWith("ZZTA")
+			if ((dataFile.getName().toUpperCase().startsWith("ZZTA02")
 			// || dataFile.getName().toUpperCase().startsWith("ZZMA")
 			// || dataFile.getName().toUpperCase().startsWith("SQRU")
 			// || dataFile.getName().toUpperCase().startsWith("SQRB")
@@ -72,12 +72,15 @@ public class CheckFileAndData {
 				}
 				lastDateOfFile += products.get(1) + ":00";
 			}
-			String sql = ("select * from " + fileName + " where date = '"
+			String sqlLash = ("select * from " + fileName + " where date = '"
 					+ lastDateOfFile + "'").replace("/", "-");
+			String sqlFirst = ("select * from " + fileName + " where date = '"
+					+ firstDateOfFile + "'").replace("/", "-");
 			CommonDAO dao = new CommonDAO();
-			CommonVO vo = dao.doSearch(sql);
-			BasicUtils.out(vo.hasData());
-			if (!vo.hasData()) {
+			CommonVO voLast = dao.doSearch(sqlLash);
+			CommonVO voFirst = dao.doSearch(sqlFirst);
+			BasicUtils.out(voLast.hasData() && voFirst.getRowCountInVO() <= 1);
+			if (!(voLast.hasData() && voFirst.getRowCountInVO() <= 1)) {
 				failedIndex.add(index);
 				failedString.add(dataFile.getAbsolutePath());
 				dao.doExec("delete from " + fileName + " where date >= '"
